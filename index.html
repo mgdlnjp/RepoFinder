@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meilleurs repos GitHub par sujet et langage | RepoFinder</title>
+<meta name="description" content="Trouvez en quelques secondes les meilleurs dépôts GitHub : tendances de la semaine, projets IA/LLM, repos Python, JavaScript, Rust… classés par étoiles et par score qualité. Gratuit.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://VOTRE-DOMAINE.com/">
+<meta name="theme-color" content="#0d1117">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1117'/%3E%3Ccircle cx='28' cy='28' r='14' fill='none' stroke='%232f81f7' stroke-width='6'/%3E%3Cpath d='M38 38l12 12' stroke='%232f81f7' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://api.github.com" crossorigin>
+<link rel="preconnect" href="https://avatars.githubusercontent.com">
+
+<!-- Partage sur les réseaux sociaux (Facebook, LinkedIn, WhatsApp, Discord, X…) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RepoFinder">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="RepoFinder — Les meilleurs repos GitHub, triés pour vous">
+<meta property="og:description" content="Tendances de la semaine, pépites IA, projets pour débuter : trouvez les dépôts GitHub qui valent vraiment le coup, avec un score qualité.">
+<meta property="og:url" content="https://VOTRE-DOMAINE.com/">
+<meta property="og:image" content="https://VOTRE-DOMAINE.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="RepoFinder — trouvez les meilleurs dépôts GitHub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RepoFinder — Les meilleurs repos GitHub, triés pour vous">
+<meta name="twitter:description" content="Tendances, IA, Python, Rust… les dépôts GitHub qui valent le coup, avec un score qualité.">
+<meta name="twitter:image" content="https://VOTRE-DOMAINE.com/og-image.png">
+
+<!-- Données structurées (résultats enrichis Google) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://VOTRE-DOMAINE.com/#website",
+      "url": "https://VOTRE-DOMAINE.com/",
+      "name": "RepoFinder",
+      "inLanguage": "fr-FR",
+      "description": "Trouvez en quelques secondes les meilleurs dépôts GitHub : tendances de la semaine, projets IA/LLM, repos Python, JavaScript, Rust… classés par étoiles et par score qualité. Gratuit.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": "https://VOTRE-DOMAINE.com/?q={search_term_string}" },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "WebApplication",
+      "name": "RepoFinder",
+      "url": "https://VOTRE-DOMAINE.com/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Tous (navigateur web)",
+      "inLanguage": "fr-FR",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Comment trouver les meilleurs repos GitHub ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Tapez un sujet (par exemple « machine learning » ou « react ui »), choisissez un langage et un nombre minimum d'étoiles, puis triez par étoiles ou par score qualité. RepoFinder interroge GitHub en direct et classe les dépôts pour vous." } },
+        { "@type": "Question", "name": "Comment est calculé le score qualité ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Le score qualité (0 à 100) combine la popularité (étoiles), la vitesse de croissance, l'activité récente, la communauté (forks) et la documentation (description, licence, topics). Les projets archivés sont pénalisés." } },
+        { "@type": "Question", "name": "Comment voir les repos GitHub en tendance cette semaine ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Cliquez sur « Tendances de la semaine » : RepoFinder affiche les dépôts créés ces 7 derniers jours qui gagnent le plus d'étoiles." } },
+        { "@type": "Question", "name": "RepoFinder est-il gratuit ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui, RepoFinder est entièrement gratuit et sans inscription. Un jeton GitHub optionnel permet simplement de faire plus de recherches par minute." } },
+        { "@type": "Question", "name": "Comment trouver un projet open source pour débuter ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Utilisez le filtre « Pour débuter » : il sélectionne des projets actifs et populaires qui proposent de nombreuses issues « good first issue », idéales pour une première contribution." } }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --border: #30363d; --text: #e6edf3;
+    --muted: #8b949e; --accent: #2f81f7; --star: #e3b341; --green: #3fb950;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+         background: var(--bg); color: var(--text); }
+  header { padding: 32px 20px 8px; text-align: center; }
+  h1 { margin: 0; font-size: 28px; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); margin-top: 6px; }
+  main { max-width: 980px; margin: 0 auto; padding: 16px 20px 60px; }
+  form { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .row + .row { margin-top: 10px; }
+  input, select, button { font: inherit; color: var(--text); background: var(--bg);
+          border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; }
+  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  #q { flex: 1; min-width: 220px; font-size: 17px; }
+  button { cursor: pointer; }
+  button.primary { background: var(--accent); border-color: var(--accent); font-weight: 600; }
+  button:disabled { opacity: .5; cursor: default; }
+  label.f { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); flex: 1; min-width: 140px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .chip { font-size: 13px; padding: 5px 10px; border-radius: 999px; background: transparent; }
+  .chip:hover { border-color: var(--accent); }
+  details { margin-top: 12px; color: var(--muted); font-size: 13px; }
+  details input { width: 100%; margin-top: 6px; }
+  #status { color: var(--muted); margin: 18px 2px 8px; font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  #status .err { color: #f85149; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+          margin-bottom: 12px; display: flex; gap: 14px; }
+  .card:hover { border-color: #484f58; }
+  .card img { width: 44px; height: 44px; border-radius: 8px; flex: none; }
+  .card .body { flex: 1; min-width: 0; }
+  .title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .title a { color: var(--accent); font-weight: 600; font-size: 17px; text-decoration: none; word-break: break-all; }
+  .title a:hover { text-decoration: underline; }
+  .rank { color: var(--muted); font-size: 13px; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
+  .badge.hot { color: #ff7b72; border-color: #ff7b72; }
+  .desc { margin: 6px 0 8px; color: #c9d1d9; line-height: 1.45; }
+  .topics { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .topic { font-size: 12px; background: #1f6feb22; color: #79c0ff; padding: 2px 9px; border-radius: 999px; cursor: pointer; border: none; }
+  .meta { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+  .meta .stars { color: var(--star); font-weight: 600; }
+  .score { margin-left: auto; text-align: right; flex: none; }
+  .score b { font-size: 22px; color: var(--green); display: block; }
+  .score small { color: var(--muted); font-size: 11px; }
+  .pager { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+  .empty { text-align: center; color: var(--muted); padding: 40px; }
+  .share { font-size: 13px; padding: 5px 12px; }
+  .seo { margin-top: 48px; color: #c9d1d9; line-height: 1.6; }
+  .seo h2 { font-size: 20px; margin: 32px 0 10px; color: var(--text); }
+  .seo p { margin: 0 0 10px; }
+  .seo a { color: var(--accent); text-decoration: none; }
+  .seo a:hover { text-decoration: underline; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; margin: 0; }
+  .links a { display: inline-block; font-size: 13px; padding: 5px 11px; border: 1px solid var(--border); border-radius: 999px; }
+  .faq details { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin: 0 0 8px; color: #c9d1d9; font-size: 15px; }
+  .faq summary { cursor: pointer; font-weight: 600; color: var(--text); }
+  .faq details p { margin: 8px 0 0; }
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 24px 20px 40px; border-top: 1px solid var(--border); }
+  footer a { color: var(--muted); }
+
+  /* Bannières publicitaires latérales (Adsterra 160×600) */
+  .ad-side { position: fixed; top: 110px; width: 160px; min-height: 600px; display: none; z-index: 1; }
+  .ad-left  { right: calc(50% + 490px + 20px); }
+  .ad-right { left:  calc(50% + 490px + 20px); }
+  .ad-ph { width: 160px; height: 600px; border: 1px dashed var(--border); border-radius: 8px;
+           display: flex; align-items: center; justify-content: center; text-align: center;
+           color: var(--muted); font-size: 12px; }
+  /* Affichées seulement s'il y a la place à côté du contenu (980px + 2 × 180px) */
+  @media (min-width: 1360px) { .ad-side { display: block; } }
+</style>
+<script>
+/* ===== Configuration Adsterra =====
+   Dans Adsterra : créez 2 emplacements « Banner 160x600 » (un par côté),
+   puis copiez pour chacun la valeur 'key' et le domaine du script invoke.js
+   (ex. https://www.highperformanceformat.com/<key>/invoke.js). */
+const ADSTERRA = {
+  host:  "https://www.highperformanceformat.com", // domaine indiqué dans votre code Adsterra
+  left:  "",  // clé de la bannière gauche
+  right: "",  // clé de la bannière droite
+};
+function adSlot(side) {
+  const key = ADSTERRA[side];
+  if (!key || window.innerWidth < 1360) {
+    if (!key) document.write('<div class="ad-ph">Publicité<br>160 × 600</div>');
+    return;
+  }
+  window.atOptions = { key, format: "iframe", height: 600, width: 160, params: {} };
+  document.write('<script src="' + ADSTERRA.host + '/' + key + '/invoke.js"><\/script>');
+}
+</script>
+</head>
+<body>
+<aside class="ad-side ad-left" aria-label="Publicité"><script>adSlot("left")</script></aside>
+<aside class="ad-side ad-right" aria-label="Publicité"><script>adSlot("right")</script></aside>
+<header>
+  <div style="font-size:28px;font-weight:700">Repo<span style="color:var(--accent)">Finder</span></div>
+  <h1 class="sub" style="font-size:16px;font-weight:400;margin-top:6px">Trouvez les meilleurs repos GitHub par sujet, langage et popularité</h1>
+</header>
+<main>
+  <form id="form">
+    <div class="row">
+      <input id="q" type="search" name="q" aria-label="Rechercher un dépôt GitHub" placeholder="Ex : machine learning, react ui, cli rust…" autofocus>
+      <button class="primary" type="submit">Rechercher</button>
+    </div>
+    <div class="row">
+      <label class="f">Langage
+        <select id="lang">
+          <option value="">Tous</option>
+          <option>Python</option><option>JavaScript</option><option>TypeScript</option><option>Go</option>
+          <option>Rust</option><option>Java</option><option>C++</option><option>C</option><option>C#</option>
+          <option>Swift</option><option>Kotlin</option><option>PHP</option><option>Ruby</option><option>Dart</option>
+          <option>Shell</option><option>Jupyter Notebook</option><option>HTML</option><option>Vue</option>
+        </select>
+      </label>
+      <label class="f">Étoiles minimum
+        <select id="stars">
+          <option value="0">Peu importe</option><option value="100">100+</option>
+          <option value="1000" selected>1 000+</option><option value="10000">10 000+</option>
+          <option value="50000">50 000+</option>
+        </select>
+      </label>
+      <label class="f">Créé
+        <select id="created">
+          <option value="">N'importe quand</option><option value="7">Cette semaine</option>
+          <option value="30">Ce mois-ci</option><option value="365">Cette année</option>
+        </select>
+      </label>
+      <label class="f">Actif récemment
+        <select id="pushed">
+          <option value="">Peu importe</option><option value="30">≤ 1 mois</option>
+          <option value="180" selected>≤ 6 mois</option><option value="365">≤ 1 an</option>
+        </select>
+      </label>
+      <label class="f">Trier par
+        <select id="sort">
+          <option value="stars">Étoiles</option><option value="score">Score qualité (maison)</option>
+          <option value="forks">Forks</option><option value="updated">Mise à jour</option>
+          <option value="best">Pertinence</option>
+        </select>
+      </label>
+    </div>
+    <div class="chips">
+      <button type="button" class="chip" data-preset="trending">🔥 Tendances de la semaine</button>
+      <button type="button" class="chip" data-preset="month">📈 Révélations du mois</button>
+      <button type="button" class="chip" data-preset="awesome">✨ Listes « awesome »</button>
+      <button type="button" class="chip" data-preset="ai">🤖 IA / LLM</button>
+      <button type="button" class="chip" data-preset="beginner">🌱 Pour débuter (good first issue)</button>
+    </div>
+    <details>
+      <summary>Jeton GitHub (optionnel — passe de 10 à 30 recherches/minute)</summary>
+      <input id="token" type="password" placeholder="ghp_… (stocké uniquement dans ce navigateur)">
+    </details>
+  </form>
+
+  <div id="status"></div>
+  <div id="results"><div class="empty">Lancez une recherche ou choisissez une suggestion ci-dessus.</div></div>
+  <div class="pager" id="pager"></div>
+
+  <section class="seo">
+    <h2>Recherches populaires</h2>
+    <ul class="links">
+      <li><a href="?preset=trending">Repos GitHub en tendance cette semaine</a></li>
+      <li><a href="?preset=ai">Meilleurs projets IA / LLM open source</a></li>
+      <li><a href="?lang=Python&amp;sort=score">Meilleurs repos Python</a></li>
+      <li><a href="?lang=JavaScript&amp;sort=score">Meilleurs repos JavaScript</a></li>
+      <li><a href="?lang=TypeScript&amp;sort=score">Meilleurs repos TypeScript</a></li>
+      <li><a href="?lang=Rust&amp;sort=score">Meilleurs repos Rust</a></li>
+      <li><a href="?lang=Go&amp;sort=score">Meilleurs repos Go</a></li>
+      <li><a href="?q=react+ui">Bibliothèques React UI</a></li>
+      <li><a href="?q=machine+learning&amp;sort=score">Machine learning</a></li>
+      <li><a href="?q=self-hosted&amp;sort=score">Applications self-hosted</a></li>
+      <li><a href="?q=cli&amp;lang=Rust">Outils CLI en Rust</a></li>
+      <li><a href="?preset=awesome">Listes « awesome »</a></li>
+      <li><a href="?preset=beginner">Projets pour débuter en open source</a></li>
+    </ul>
+
+    <h2>Trouver les meilleurs dépôts GitHub, sans perdre de temps</h2>
+    <p>GitHub héberge plus de 400 millions de dépôts : trouver celui qui vaut vraiment le coup peut prendre des heures. <strong>RepoFinder</strong> interroge GitHub en temps réel et classe les projets par <strong>étoiles</strong>, <strong>forks</strong>, <strong>activité récente</strong> ou selon notre <strong>score qualité</strong> maison. Filtrez par langage (Python, JavaScript, TypeScript, Rust, Go, Java…), par date de création ou par popularité, et repérez en un coup d'œil les projets 🔥 en forte croissance.</p>
+    <p>Que vous cherchiez une bibliothèque pour votre prochain projet, une alternative open source à un logiciel payant, les dernières pépites en intelligence artificielle ou un premier projet auquel contribuer, RepoFinder vous fait gagner du temps.</p>
+
+    <h2>Questions fréquentes</h2>
+    <div class="faq">
+      <details><summary>Comment trouver les meilleurs repos GitHub ?</summary><p>Tapez un sujet (par exemple « machine learning » ou « react ui »), choisissez un langage et un nombre minimum d'étoiles, puis triez par étoiles ou par score qualité. RepoFinder interroge GitHub en direct et classe les dépôts pour vous.</p></details>
+      <details><summary>Comment est calculé le score qualité ?</summary><p>Le score qualité (0 à 100) combine la popularité (étoiles), la vitesse de croissance, l'activité récente, la communauté (forks) et la documentation (description, licence, topics). Les projets archivés sont pénalisés.</p></details>
+      <details><summary>Comment voir les repos GitHub en tendance cette semaine ?</summary><p>Cliquez sur « Tendances de la semaine » : RepoFinder affiche les dépôts créés ces 7 derniers jours qui gagnent le plus d'étoiles.</p></details>
+      <details><summary>RepoFinder est-il gratuit ?</summary><p>Oui, RepoFinder est entièrement gratuit et sans inscription. Un jeton GitHub optionnel permet simplement de faire plus de recherches par minute.</p></details>
+      <details><summary>Comment trouver un projet open source pour débuter ?</summary><p>Utilisez le filtre « Pour débuter » : il sélectionne des projets actifs et populaires qui proposent de nombreuses issues « good first issue », idéales pour une première contribution.</p></details>
+    </div>
+  </section>
+</main>
+<footer>
+  RepoFinder — moteur de recherche indépendant de dépôts GitHub. Données fournies par l'API publique de GitHub. Non affilié à GitHub, Inc.
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const PER_PAGE = 30;
+let page = 1, extra = "", preset = "";
+
+try { $("token").value = localStorage.getItem("ghToken") || ""; } catch {}
+$("token").addEventListener("change", e => { try { localStorage.setItem("ghToken", e.target.value.trim()); } catch {} });
+
+const daysAgo = d => new Date(Date.now() - d * 864e5).toISOString().slice(0, 10);
+const fmt = n => n >= 1e6 ? (n/1e6).toFixed(1)+"M" : n >= 1e3 ? (n/1e3).toFixed(1).replace(".0","")+"k" : String(n);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function ago(date) {
+  const d = (Date.now() - new Date(date)) / 864e5;
+  if (d < 1) return "aujourd'hui";
+  if (d < 30) return `il y a ${Math.round(d)} j`;
+  if (d < 365) return `il y a ${Math.round(d/30)} mois`;
+  return `il y a ${(d/365).toFixed(1).replace(".0","")} an(s)`;
+}
+
+// Score qualité maison (0–100) : popularité, vélocité, activité, communauté, documentation
+function quality(r) {
+  const ageDays = Math.max(1, (Date.now() - new Date(r.created_at)) / 864e5);
+  const sinceUpdate = (Date.now() - new Date(r.pushed_at)) / 864e5;
+  const pop = Math.min(1, Math.log10(r.stargazers_count + 1) / 5);          // 100k★ = max
+  const velocity = Math.min(1, Math.log10(r.stargazers_count / ageDays * 30 + 1) / 3.5);
+  const activity = sinceUpdate < 7 ? 1 : sinceUpdate < 30 ? .85 : sinceUpdate < 180 ? .6 : sinceUpdate < 365 ? .3 : .05;
+  const community = Math.min(1, Math.log10(r.forks_count + 1) / 4);
+  const docs = (r.description ? .4 : 0) + (r.license ? .3 : 0) + ((r.topics || []).length ? .3 : 0);
+  const penalty = r.archived ? .5 : 1;
+  return Math.round(100 * penalty * (pop*.35 + velocity*.2 + activity*.2 + community*.15 + docs*.1));
+}
+
+function buildQuery() {
+  const parts = [];
+  const q = $("q").value.trim();
+  if (q) parts.push(q);
+  if ($("lang").value) parts.push(`language:"${$("lang").value}"`);
+  if (+$("stars").value) parts.push(`stars:>=${$("stars").value}`);
+  if ($("created").value) parts.push(`created:>=${daysAgo(+$("created").value)}`);
+  if ($("pushed").value) parts.push(`pushed:>=${daysAgo(+$("pushed").value)}`);
+  if (extra) parts.push(extra);
+  parts.push("archived:false");
+  return parts.join(" ");
+}
+
+async function search() {
+  const query = buildQuery();
+  const sort = $("sort").value;
+  const apiSort = sort === "score" ? "stars" : sort;
+  const params = new URLSearchParams({ q: query, per_page: PER_PAGE, page });
+  if (apiSort !== "best") { params.set("sort", apiSort); params.set("order", "desc"); }
+
+  const headers = { Accept: "application/vnd.github+json" };
+  const tok = $("token").value.trim();
+  if (tok) headers.Authorization = `Bearer ${tok}`;
+
+  syncUrl();
+  $("status").innerHTML = "Recherche…";
+  $("pager").innerHTML = "";
+  try {
+    const res = await fetch(`https://api.github.com/search/repositories?${params}`, { headers });
+    const data = await res.json();
+    if (!res.ok) {
+      const reset = res.headers.get("x-ratelimit-reset");
+      const wait = reset ? Math.max(0, Math.ceil(reset - Date.now()/1000)) : null;
+      throw new Error(res.status === 403 || res.status === 429
+        ? `Limite de requêtes atteinte${wait != null ? ` — réessayez dans ${wait} s` : ""}. Ajoutez un jeton GitHub pour en avoir plus.`
+        : data.message || `Erreur ${res.status}`);
+    }
+    let items = data.items.map(r => ({ ...r, _q: quality(r) }));
+    if (sort === "score") items.sort((a, b) => b._q - a._q);
+    render(items, data.total_count, query);
+  } catch (e) {
+    $("status").innerHTML = `<span class="err">⚠ ${esc(e.message)}</span>`;
+  }
+}
+
+function render(items, total, query) {
+  $("status").innerHTML = `<span>${total.toLocaleString("fr-FR")} dépôts trouvés</span><button type="button" class="share" id="share">🔗 Partager cette recherche</button>`;
+  $("share").onclick = shareSearch;
+  if (!items.length) { $("results").innerHTML = `<div class="empty">Aucun résultat. Essayez d'élargir les filtres.</div>`; return; }
+  $("results").innerHTML = items.map((r, i) => {
+    const ageDays = Math.max(1, (Date.now() - new Date(r.created_at)) / 864e5);
+    const hot = ageDays < 90 && r.stargazers_count / ageDays > 20;
+    return `
+    <div class="card">
+      <img src="${esc(r.owner.avatar_url)}&s=88" alt="Avatar de ${esc(r.owner.login)}" width="44" height="44" loading="lazy">
+      <div class="body">
+        <div class="title">
+          <span class="rank">#${(page-1)*PER_PAGE + i + 1}</span>
+          <a href="${esc(r.html_url)}" target="_blank" rel="noopener">${esc(r.full_name)}</a>
+          ${hot ? '<span class="badge hot">🔥 en forte croissance</span>' : ""}
+          ${r.fork ? '<span class="badge">fork</span>' : ""}
+        </div>
+        <div class="desc">${esc(r.description) || "<i style='color:var(--muted)'>Pas de description</i>"}</div>
+        ${(r.topics||[]).length ? `<div class="topics">${r.topics.slice(0,8).map(t => `<button class="topic" data-topic="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : ""}
+        <div class="meta">
+          <span class="stars">★ ${fmt(r.stargazers_count)}</span>
+          <span>⑂ ${fmt(r.forks_count)}</span>
+          ${r.language ? `<span>● ${esc(r.language)}</span>` : ""}
+          ${r.license && r.license.spdx_id !== "NOASSERTION" ? `<span>⚖ ${esc(r.license.spdx_id)}</span>` : ""}
+          <span>Mis à jour ${ago(r.pushed_at)}</span>
+          <span>Créé ${ago(r.created_at)}</span>
+        </div>
+      </div>
+      <div class="score" title="Score maison : popularité, croissance, activité, communauté, documentation"><b>${r._q}</b><small>qualité</small></div>
+    </div>`;
+  }).join("");
+
+  const maxPage = Math.min(Math.ceil(total / PER_PAGE), Math.floor(1000 / PER_PAGE)); // l'API limite à 1000 résultats
+  $("pager").innerHTML = `
+    <button ${page <= 1 ? "disabled" : ""} id="prev">← Précédent</button>
+    <span style="align-self:center;color:var(--muted)">Page ${page} / ${maxPage}</span>
+    <button ${page >= maxPage ? "disabled" : ""} id="next">Suivant →</button>`;
+  $("prev").onclick = () => { page--; search(); scrollTo(0, 0); };
+  $("next").onclick = () => { page++; search(); scrollTo(0, 0); };
+}
+
+$("form").addEventListener("submit", e => { e.preventDefault(); page = 1; extra = ""; preset = ""; search(); });
+["lang","stars","created","pushed","sort"].forEach(id => $(id).addEventListener("change", () => { page = 1; search(); }));
+
+$("results").addEventListener("click", e => {
+  const t = e.target.closest(".topic");
+  if (t) { preset = ""; extra = `topic:${t.dataset.topic}`; $("q").value = ""; page = 1; search(); scrollTo(0, 0); }
+});
+
+const presets = {
+  trending: () => { $("created").value = "7"; $("stars").value = "0"; $("pushed").value = ""; $("sort").value = "stars"; extra = "stars:>=20"; },
+  month:    () => { $("created").value = "30"; $("stars").value = "100"; $("pushed").value = ""; $("sort").value = "stars"; extra = ""; },
+  awesome:  () => { $("q").value = "awesome in:name"; $("created").value = ""; $("stars").value = "10000"; $("sort").value = "stars"; extra = ""; },
+  ai:       () => { $("q").value = ""; $("created").value = ""; $("stars").value = "1000"; $("pushed").value = "30"; $("sort").value = "score"; extra = "topic:llm"; },
+  beginner: () => { $("created").value = ""; $("stars").value = "1000"; $("pushed").value = "30"; $("sort").value = "stars"; extra = "good-first-issues:>10"; },
+};
+document.querySelectorAll("[data-preset]").forEach(b => b.addEventListener("click", () => {
+  if (b.dataset.preset !== "awesome") $("q").value = "";
+  preset = b.dataset.preset; presets[preset](); page = 1; search();
+}));
+
+const PRESET_TITLES = { trending: "Repos GitHub en tendance cette semaine", month: "Révélations GitHub du mois",
+  awesome: "Meilleures listes awesome GitHub", ai: "Meilleurs projets IA / LLM sur GitHub", beginner: "Projets GitHub pour débuter" };
+const FIELDS = ["lang", "stars", "created", "pushed", "sort"];
+const DEFAULTS = Object.fromEntries(FIELDS.map(id => [id, $(id).value]));
+
+// URL partageable : chaque recherche a sa propre adresse (?q=…&lang=…)
+function syncUrl() {
+  const p = new URLSearchParams();
+  if (preset) p.set("preset", preset);
+  else {
+    if ($("q").value.trim()) p.set("q", $("q").value.trim());
+    FIELDS.forEach(id => { if ($(id).value !== DEFAULTS[id]) p.set(id, $(id).value); });
+    if (extra.startsWith("topic:")) p.set("topic", extra.slice(6));
+  }
+  if (page > 1) p.set("page", page);
+  const url = location.pathname + (p.toString() ? "?" + p : "");
+  if (url !== location.pathname + location.search) history.replaceState(null, "", url);
+  const label = preset ? PRESET_TITLES[preset]
+    : [$("q").value.trim() || (extra.startsWith("topic:") ? extra.slice(6) : ""), $("lang").value].filter(Boolean).join(" · ");
+  document.title = label ? `${preset ? label : "Meilleurs repos GitHub : " + label} | RepoFinder` : "Meilleurs repos GitHub par sujet et langage | RepoFinder";
+}
+
+async function shareSearch() {
+  const data = { title: document.title, text: "Regarde ces repos GitHub 👀", url: location.href };
+  try {
+    if (navigator.share) return await navigator.share(data);
+    await navigator.clipboard.writeText(location.href);
+    $("share").textContent = "✅ Lien copié !";
+  } catch {}
+}
+
+// Au chargement : relancer la recherche décrite dans l'URL
+(function initFromUrl() {
+  const p = new URLSearchParams(location.search);
+  if (![...p.keys()].length) return;
+  if (p.get("preset") in presets) { preset = p.get("preset"); if (preset !== "awesome") $("q").value = ""; presets[preset](); }
+  else {
+    $("q").value = p.get("q") || "";
+    FIELDS.forEach(id => { if (p.has(id) && [...$(id).options].some(o => o.value === p.get(id))) $(id).value = p.get(id); });
+    if (p.get("topic")) extra = "topic:" + p.get("topic");
+  }
+  page = Math.max(1, Math.min(33, parseInt(p.get("page")) || 1));
+  search();
+})();
+</script>
+</body>
+</html>

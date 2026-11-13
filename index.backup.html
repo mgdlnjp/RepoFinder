@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RepoFinder — les meilleurs repos GitHub</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --border: #30363d; --text: #e6edf3;
+    --muted: #8b949e; --accent: #2f81f7; --star: #e3b341; --green: #3fb950;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+         background: var(--bg); color: var(--text); }
+  header { padding: 32px 20px 8px; text-align: center; }
+  h1 { margin: 0; font-size: 28px; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); margin-top: 6px; }
+  main { max-width: 980px; margin: 0 auto; padding: 16px 20px 60px; }
+  form { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .row + .row { margin-top: 10px; }
+  input, select, button { font: inherit; color: var(--text); background: var(--bg);
+          border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; }
+  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  #q { flex: 1; min-width: 220px; font-size: 17px; }
+  button { cursor: pointer; }
+  button.primary { background: var(--accent); border-color: var(--accent); font-weight: 600; }
+  button:disabled { opacity: .5; cursor: default; }
+  label.f { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); flex: 1; min-width: 140px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .chip { font-size: 13px; padding: 5px 10px; border-radius: 999px; background: transparent; }
+  .chip:hover { border-color: var(--accent); }
+  details { margin-top: 12px; color: var(--muted); font-size: 13px; }
+  details input { width: 100%; margin-top: 6px; }
+  #status { color: var(--muted); margin: 18px 2px 8px; font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  #status .err { color: #f85149; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+          margin-bottom: 12px; display: flex; gap: 14px; }
+  .card:hover { border-color: #484f58; }
+  .card img { width: 44px; height: 44px; border-radius: 8px; flex: none; }
+  .card .body { flex: 1; min-width: 0; }
+  .title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .title a { color: var(--accent); font-weight: 600; font-size: 17px; text-decoration: none; word-break: break-all; }
+  .title a:hover { text-decoration: underline; }
+  .rank { color: var(--muted); font-size: 13px; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
+  .badge.hot { color: #ff7b72; border-color: #ff7b72; }
+  .desc { margin: 6px 0 8px; color: #c9d1d9; line-height: 1.45; }
+  .topics { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .topic { font-size: 12px; background: #1f6feb22; color: #79c0ff; padding: 2px 9px; border-radius: 999px; cursor: pointer; border: none; }
+  .meta { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+  .meta .stars { color: var(--star); font-weight: 600; }
+  .score { margin-left: auto; text-align: right; flex: none; }
+  .score b { font-size: 22px; color: var(--green); display: block; }
+  .score small { color: var(--muted); font-size: 11px; }
+  .pager { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+  .empty { text-align: center; color: var(--muted); padding: 40px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Repo<span>Finder</span></h1>
+  <div class="sub">Trouvez les meilleurs dépôts GitHub par sujet, langage et popularité</div>
+</header>
+<main>
+  <form id="form">
+    <div class="row">
+      <input id="q" placeholder="Ex : machine learning, react ui, cli rust…" autofocus>
+      <button class="primary" type="submit">Rechercher</button>
+    </div>
+    <div class="row">
+      <label class="f">Langage
+        <select id="lang">
+          <option value="">Tous</option>
+          <option>Python</option><option>JavaScript</option><option>TypeScript</option><option>Go</option>
+          <option>Rust</option><option>Java</option><option>C++</option><option>C</option><option>C#</option>
+          <option>Swift</option><option>Kotlin</option><option>PHP</option><option>Ruby</option><option>Dart</option>
+          <option>Shell</option><option>Jupyter Notebook</option><option>HTML</option><option>Vue</option>
+        </select>
+      </label>
+      <label class="f">Étoiles minimum
+        <select id="stars">
+          <option value="0">Peu importe</option><option value="100">100+</option>
+          <option value="1000" selected>1 000+</option><option value="10000">10 000+</option>
+          <option value="50000">50 000+</option>
+        </select>
+      </label>
+      <label class="f">Créé
+        <select id="created">
+          <option value="">N'importe quand</option><option value="7">Cette semaine</option>
+          <option value="30">Ce mois-ci</option><option value="365">Cette année</option>
+        </select>
+      </label>
+      <label class="f">Actif récemment
+        <select id="pushed">
+          <option value="">Peu importe</option><option value="30">≤ 1 mois</option>
+          <option value="180" selected>≤ 6 mois</option><option value="365">≤ 1 an</option>
+        </select>
+      </label>
+      <label class="f">Trier par
+        <select id="sort">
+          <option value="stars">Étoiles</option><option value="score">Score qualité (maison)</option>
+          <option value="forks">Forks</option><option value="updated">Mise à jour</option>
+          <option value="best">Pertinence</option>
+        </select>
+      </label>
+    </div>
+    <div class="chips">
+      <button type="button" class="chip" data-preset="trending">🔥 Tendances de la semaine</button>
+      <button type="button" class="chip" data-preset="month">📈 Révélations du mois</button>
+      <button type="button" class="chip" data-preset="awesome">✨ Listes « awesome »</button>
+      <button type="button" class="chip" data-preset="ai">🤖 IA / LLM</button>
+      <button type="button" class="chip" data-preset="beginner">🌱 Pour débuter (good first issue)</button>
+    </div>
+    <details>
+      <summary>Jeton GitHub (optionnel — passe de 10 à 30 recherches/minute)</summary>
+      <input id="token" type="password" placeholder="ghp_… (stocké uniquement dans ce navigateur)">
+    </details>
+  </form>
+
+  <div id="status"></div>
+  <div id="results"><div class="empty">Lancez une recherche ou choisissez une suggestion ci-dessus.</div></div>
+  <div class="pager" id="pager"></div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const PER_PAGE = 30;
+let page = 1, extra = "";
+
+try { $("token").value = localStorage.getItem("ghToken") || ""; } catch {}
+$("token").addEventListener("change", e => { try { localStorage.setItem("ghToken", e.target.value.trim()); } catch {} });
+
+const daysAgo = d => new Date(Date.now() - d * 864e5).toISOString().slice(0, 10);
+const fmt = n => n >= 1e6 ? (n/1e6).toFixed(1)+"M" : n >= 1e3 ? (n/1e3).toFixed(1).replace(".0","")+"k" : String(n);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function ago(date) {
+  const d = (Date.now() - new Date(date)) / 864e5;
+  if (d < 1) return "aujourd'hui";
+  if (d < 30) return `il y a ${Math.round(d)} j`;
+  if (d < 365) return `il y a ${Math.round(d/30)} mois`;
+  return `il y a ${(d/365).toFixed(1).replace(".0","")} an(s)`;
+}
+
+// Score qualité maison (0–100) : popularité, vélocité, activité, communauté, documentation
+function quality(r) {
+  const ageDays = Math.max(1, (Date.now() - new Date(r.created_at)) / 864e5);
+  const sinceUpdate = (Date.now() - new Date(r.pushed_at)) / 864e5;
+  const pop = Math.min(1, Math.log10(r.stargazers_count + 1) / 5);          // 100k★ = max
+  const velocity = Math.min(1, Math.log10(r.stargazers_count / ageDays * 30 + 1) / 3.5);
+  const activity = sinceUpdate < 7 ? 1 : sinceUpdate < 30 ? .85 : sinceUpdate < 180 ? .6 : sinceUpdate < 365 ? .3 : .05;
+  const community = Math.min(1, Math.log10(r.forks_count + 1) / 4);
+  const docs = (r.description ? .4 : 0) + (r.license ? .3 : 0) + ((r.topics || []).length ? .3 : 0);
+  const penalty = r.archived ? .5 : 1;
+  return Math.round(100 * penalty * (pop*.35 + velocity*.2 + activity*.2 + community*.15 + docs*.1));
+}
+
+function buildQuery() {
+  const parts = [];
+  const q = $("q").value.trim();
+  if (q) parts.push(q);
+  if ($("lang").value) parts.push(`language:"${$("lang").value}"`);
+  if (+$("stars").value) parts.push(`stars:>=${$("stars").value}`);
+  if ($("created").value) parts.push(`created:>=${daysAgo(+$("created").value)}`);
+  if ($("pushed").value) parts.push(`pushed:>=${daysAgo(+$("pushed").value)}`);
+  if (extra) parts.push(extra);
+  parts.push("archived:false");
+  return parts.join(" ");
+}
+
+async function search() {
+  const query = buildQuery();
+  const sort = $("sort").value;
+  const apiSort = sort === "score" ? "stars" : sort;
+  const params = new URLSearchParams({ q: query, per_page: PER_PAGE, page });
+  if (apiSort !== "best") { params.set("sort", apiSort); params.set("order", "desc"); }
+
+  const headers = { Accept: "application/vnd.github+json" };
+  const tok = $("token").value.trim();
+  if (tok) headers.Authorization = `Bearer ${tok}`;
+
+  $("status").innerHTML = "Recherche…";
+  $("pager").innerHTML = "";
+  try {
+    const res = await fetch(`https://api.github.com/search/repositories?${params}`, { headers });
+    const data = await res.json();
+    if (!res.ok) {
+      const reset = res.headers.get("x-ratelimit-reset");
+      const wait = reset ? Math.max(0, Math.ceil(reset - Date.now()/1000)) : null;
+      throw new Error(res.status === 403 || res.status === 429
+        ? `Limite de requêtes atteinte${wait != null ? ` — réessayez dans ${wait} s` : ""}. Ajoutez un jeton GitHub pour en avoir plus.`
+        : data.message || `Erreur ${res.status}`);
+    }
+    let items = data.items.map(r => ({ ...r, _q: quality(r) }));
+    if (sort === "score") items.sort((a, b) => b._q - a._q);
+    render(items, data.total_count, query);
+  } catch (e) {
+    $("status").innerHTML = `<span class="err">⚠ ${esc(e.message)}</span>`;
+  }
+}
+
+function render(items, total, query) {
+  $("status").innerHTML = `<span>${total.toLocaleString("fr-FR")} dépôts trouvés</span><code style="font-size:12px">${esc(query)}</code>`;
+  if (!items.length) { $("results").innerHTML = `<div class="empty">Aucun résultat. Essayez d'élargir les filtres.</div>`; return; }
+  $("results").innerHTML = items.map((r, i) => {
+    const ageDays = Math.max(1, (Date.now() - new Date(r.created_at)) / 864e5);
+    const hot = ageDays < 90 && r.stargazers_count / ageDays > 20;
+    return `
+    <div class="card">
+      <img src="${esc(r.owner.avatar_url)}&s=88" alt="" loading="lazy">
+      <div class="body">
+        <div class="title">
+          <span class="rank">#${(page-1)*PER_PAGE + i + 1}</span>
+          <a href="${esc(r.html_url)}" target="_blank" rel="noopener">${esc(r.full_name)}</a>
+          ${hot ? '<span class="badge hot">🔥 en forte croissance</span>' : ""}
+          ${r.fork ? '<span class="badge">fork</span>' : ""}
+        </div>
+        <div class="desc">${esc(r.description) || "<i style='color:var(--muted)'>Pas de description</i>"}</div>
+        ${(r.topics||[]).length ? `<div class="topics">${r.topics.slice(0,8).map(t => `<button class="topic" data-topic="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : ""}
+        <div class="meta">
+          <span class="stars">★ ${fmt(r.stargazers_count)}</span>
+          <span>⑂ ${fmt(r.forks_count)}</span>
+          ${r.language ? `<span>● ${esc(r.language)}</span>` : ""}
+          ${r.license && r.license.spdx_id !== "NOASSERTION" ? `<span>⚖ ${esc(r.license.spdx_id)}</span>` : ""}
+          <span>Mis à jour ${ago(r.pushed_at)}</span>
+          <span>Créé ${ago(r.created_at)}</span>
+        </div>
+      </div>
+      <div class="score" title="Score maison : popularité, croissance, activité, communauté, documentation"><b>${r._q}</b><small>qualité</small></div>
+    </div>`;
+  }).join("");
+
+  const maxPage = Math.min(Math.ceil(total / PER_PAGE), Math.floor(1000 / PER_PAGE)); // l'API limite à 1000 résultats
+  $("pager").innerHTML = `
+    <button ${page <= 1 ? "disabled" : ""} id="prev">← Précédent</button>
+    <span style="align-self:center;color:var(--muted)">Page ${page} / ${maxPage}</span>
+    <button ${page >= maxPage ? "disabled" : ""} id="next">Suivant →</button>`;
+  $("prev").onclick = () => { page--; search(); scrollTo(0, 0); };
+  $("next").onclick = () => { page++; search(); scrollTo(0, 0); };
+}
+
+$("form").addEventListener("submit", e => { e.preventDefault(); page = 1; extra = ""; search(); });
+["lang","stars","created","pushed","sort"].forEach(id => $(id).addEventListener("change", () => { page = 1; search(); }));
+
+$("results").addEventListener("click", e => {
+  const t = e.target.closest(".topic");
+  if (t) { extra = `topic:${t.dataset.topic}`; $("q").value = ""; page = 1; search(); scrollTo(0, 0); }
+});
+
+const presets = {
+  trending: () => { $("created").value = "7"; $("stars").value = "0"; $("pushed").value = ""; $("sort").value = "stars"; extra = "stars:>=20"; },
+  month:    () => { $("created").value = "30"; $("stars").value = "100"; $("pushed").value = ""; $("sort").value = "stars"; extra = ""; },
+  awesome:  () => { $("q").value = "awesome in:name"; $("created").value = ""; $("stars").value = "10000"; $("sort").value = "stars"; extra = ""; },
+  ai:       () => { $("q").value = ""; $("created").value = ""; $("stars").value = "1000"; $("pushed").value = "30"; $("sort").value = "score"; extra = "topic:llm"; },
+  beginner: () => { $("created").value = ""; $("stars").value = "1000"; $("pushed").value = "30"; $("sort").value = "stars"; extra = "good-first-issues:>10"; },
+};
+document.querySelectorAll("[data-preset]").forEach(b => b.addEventListener("click", () => {
+  if (b.dataset.preset !== "awesome") $("q").value = "";
+  presets[b.dataset.preset](); page = 1; search();
+}));
+</script>
+</body>
+</html>
